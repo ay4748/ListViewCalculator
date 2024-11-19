@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         String num2 = btnHandasa.getText().toString();
         if (canAct(num1) && canAct(num2)) {
 
+
         }
     }
 }
