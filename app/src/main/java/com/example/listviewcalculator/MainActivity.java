@@ -1,10 +1,12 @@
 package com.example.listviewcalculator;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -17,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
 
     boolean isHeshbonit;
     Button btnHeshbon,btnHandasa;
+    EditText eTFirst,eTmana;
+    int numFirst,numMana;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private void initViews() {
         btnHeshbon = findViewById(R.id.btnHeshbon);
         btnHandasa = findViewById(R.id.btnHandasa);
+        eTFirst = findViewById(R.id.eTFirst);
+        eTmana = findViewById(R.id.eTmana);
 
     }
 
@@ -45,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean canAct(String st) {
         if (st.isEmpty() || st.equals("-") || st.equals(".") || st.equals("+") || st.equals("-.") || st.equals("+.")) {
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
             return false;
         } else {
             return true;
@@ -54,9 +59,22 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void goNext(View view) {
-        String num1 = btnHeshbon.getText().toString();
-        String num2 = btnHandasa.getText().toString();
-        if (canAct(num1) && canAct(num2)) {
+        //Intent si = new Intent(this,MainActivityResult.class);
+        //startActivity(si)
+        String first = eTFirst.getText().toString();
+        String mana = eTmana.getText().toString();
+        if (!(canAct(first) && canAct(mana))) {
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Intent si = new Intent(this,MainActivityResult.class);
+            numFirst = Integer.parseInt(first);
+            numMana = Integer.parseInt(mana);
+            si.putExtra("isHeshbonit", isHeshbonit);
+            si.putExtra("numFirst", numFirst);
+            si.putExtra("numMana", numMana);
+            startActivity(si);
+
 
 
         }
